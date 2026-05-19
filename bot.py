@@ -47,6 +47,7 @@ weekly_stats = {
 
 # ─── Render Web Server Component ─────────────
 # This keeps Render from force-stopping your bot
+# ─── Render Web Server Component ─────────────
 class HealthCheckHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
@@ -57,6 +58,11 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+def run_health_server():
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
+    server.serve_forever()
+    
 # ─── Binance data fetching ───────────────────
 def get_klines(symbol, interval="1h", limit=100):
     try:
