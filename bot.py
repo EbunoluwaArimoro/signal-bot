@@ -52,11 +52,10 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"Bot is alive")
-
-def run_health_server():
-    port = int(os.environ.get("PORT", 8080))
-    server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
-    server.serve_forever()
+        
+    def do_HEAD(self):
+        self.send_response(200)
+        self.end_headers()
 
 # ─── Binance data fetching ───────────────────
 def get_klines(symbol, interval="1h", limit=100):
