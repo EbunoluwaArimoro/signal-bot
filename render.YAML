@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: rich-genie-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot_v4.py
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: CHAT_ID
+        sync: false
+      - key: CAPITAL
+        value: "100"
+      - key: RISK_PCT
+        value: "2"
+      - key: MAX_POS_PCT
+        value: "20"
+      - key: SCAN_INTERVAL
+        value: "3600"
